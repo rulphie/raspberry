@@ -1,0 +1,23 @@
+---
+- hosts: localhost
+  become: true
+  tasks:
+
+    - name: install dev tools
+      apt:
+          pkg:
+              - bc
+              - bison
+              - flex
+              - libssl-dev
+
+    - name:  install cross tools
+      git:
+          repo: https://github.com/raspberrypi/tools
+          dest: ~/tools
+
+    - name: Set path for crosstools
+      command: echo PATH=\$PATH:~/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin >> ~/.bashrc
+
+    - name: source path
+      command: source ~/.bashrc
