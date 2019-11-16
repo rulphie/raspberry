@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  become: false
+  tasks:
+
+    - name:  install prebuilt cross tools
+      git:
+          repo: https://github.com/raspberrypi/tools
+          dest: ~/tools
+
+    - name: Set path for crosstools
+      command: echo PATH=\$PATH:~/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin >> ~/.bashrc
+
+    - name:  checking out kernel from  raspberryi - github
+      git:
+          repo: https://github.com/raspberrypi/linux
+          dest: ../kernel/linux  
